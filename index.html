@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tamao Horiguchi — The AI PMO Skill Pack</title>
+<meta name="description" content="The AI PMO Skill Pack — six PMO-workflow tools that encode senior project-management judgment as governed, reusable AI capabilities.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23534ab7'/%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #1c1c1a;
+    --ink-soft: #4a4a46;
+    --ink-faint: #73726c;
+    --rule: #e3e1db;
+    --paper: #faf9f6;
+    --card: #ffffff;
+    --accent: #534ab7;          /* matches the AI-specific node in the map */
+    --accent-soft: #eeedfe;
+    --serif: "Charter", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --sans: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  section { padding: 3.5rem 0; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  /* ── Section eyebrow labels ─────────────────────────── */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.75rem;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Header / positioning ───────────────────────────── */
+  header { padding: 4.5rem 0 3.5rem; }
+
+  .credentials {
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 5vw, 2.375rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 40rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .positioning {
+    color: var(--ink-soft);
+    max-width: 42rem;
+  }
+
+  .positioning strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ── Relationship map ───────────────────────────────── */
+  /* Self-contained: Phase 2 touches only #relationship-map. */
+  #relationship-map .map-frame {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.25rem 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #relationship-map svg {
+    display: block;
+    width: 100%;
+    min-width: 620px;   /* keeps the diagram's 10–12px labels legible; scrolls sideways on phones */
+    height: auto;
+    margin: 0 auto;
+  }
+
+  #relationship-map .map-caption {
+    font-size: 0.8125rem;
+    color: var(--ink-faint);
+    margin-top: 0.875rem;
+  }
+
+  /* ── Skill cards ────────────────────────────────────── */
+  .cards { display: grid; gap: 1.5rem; }
+
+  .featured-framing {
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 38rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.75rem 1.75rem 1.5rem;
+  }
+
+  .card.featured {
+    border: 2px solid var(--accent);
+  }
+
+  .card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-num {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+
+  .card h3 {
+    font-family: var(--serif);
+    font-size: 1.1875rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .tag {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.55rem;
+    border-radius: 99px;
+    border: 1px solid var(--rule);
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .tag.ai {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .card dl { display: grid; gap: 0.875rem; }
+
+  .card dt {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.2rem;
+  }
+
+  .card dd {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  /* ── Excerpt callouts ───────────────────────────────── */
+  .callouts { display: grid; gap: 2.25rem; }
+
+  .callout blockquote {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: 1.25rem;
+  }
+
+  .callout figcaption {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--ink-faint);
+  }
+
+  .callout figcaption .theme {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  /* ── Access note ────────────────────────────────────── */
+  #access .note {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.75rem;
+    max-width: 42rem;
+  }
+
+  #access .note p { color: var(--ink-soft); }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem 0 3rem;
+    font-size: 0.8125rem;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 480px) {
+    section { padding: 2.75rem 0; }
+    header { padding: 3.25rem 0 2.75rem; }
+    .card { padding: 1.375rem 1.25rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ═══ 1 · Header / positioning ═══ -->
+  <header>
+    <p class="credentials">Tamao Horiguchi · PMP, CSM</p>
+    <h1>The AI PMO Skill Pack</h1>
+    <p class="tagline">Six PMO-workflow tools that encode senior project-management judgment as governed, reusable AI capabilities.</p>
+    <p class="positioning">I'm a program and project manager with twenty years in enterprise delivery — luxury retail, multi-country platform builds, and offshore team leadership — now working at the layer that scopes, governs, and directs AI initiatives rather than the one that codes them. Each skill in this pack takes a judgment a senior PM makes under pressure — reading a status report, running a pre-mortem, translating for a stakeholder, structuring AI accountability, maintaining a RAID log, capturing a decision — and encodes it as an auditable tool with a human approval gate. <strong>The agent surfaces; the PM owns.</strong></p>
+  </header>
+
+  <!-- ═══ 2 · Relationship map ═══
+       Self-contained section: Phase 2 (hover-highlight seams, click-to-scroll)
+       enhances only this block. Skill-node groups carry ids skill-node-01…06;
+       card anchors below are #skill-01…#skill-06. -->
+  <section id="relationship-map">
+    <p class="eyebrow">The system at a glance</p>
+    <h2>How the six skills connect</h2>
+    <div class="map-frame">
+      <svg width="100%" viewBox="0 0 680 578" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="map-title map-desc">
+      <title id="map-title" style="fill:rgb(0,0,0);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:16px">AI PMO Skill Pack — skill relationship map v2</title>
+      <desc id="map-desc" style="fill:rgb(0,0,0);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:16px">Six skills in two chains. Updated June 12 2026. Confirmed relationships: Skill 06 to Skill 01 (decision records), Skill 06 to Skill 03 (decision context), Skill 01 to Skill 05 (new RAID items), Skill 04 to Skill 06 (governance decisions — upgraded from proposed per GAP-95). Proposed medium-confidence relationships: Skill 02 to Skill 06 (risk decisions), Skill 03 to Skill 06 (stakeholder approvals), Skill 06 to Skill 05 (RAID updates — return seam, GAP-98 path i).</desc>
+
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- ═══ TITLES ═══ -->
+      <text x="340" y="22" text-anchor="middle" style="fill:rgb(20,20,19);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:14px;font-weight:500">AI PMO Skill Pack — skill data flows</text>
+      <text x="140" y="44" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">Status reporting chain</text>
+      <text x="540" y="44" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">Governance &amp; tracking chain</text>
+
+      <!-- ═══ LEFT CHAIN BOXES (blue) ═══ -->
+
+      <g id="skill-node-02" style="font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif">
+        <rect x="20" y="60" width="240" height="64" rx="8" stroke-width="0.5" style="fill:rgb(230,241,251);stroke:rgb(24,95,165);stroke-width:0.5px"/>
+        <text x="140" y="84" text-anchor="middle" dominant-baseline="central" style="fill:rgb(12,68,124);stroke:none;font-size:14px;font-weight:500">Pre-Mortem Scan</text>
+        <text x="140" y="106" text-anchor="middle" dominant-baseline="central" style="fill:rgb(24,95,165);stroke:none;font-size:12px">Skill 02 · ↻ runs at phase gates</text>
+      </g>
+
+      <g id="skill-node-01" style="font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif">
+        <rect x="20" y="224" width="240" height="64" rx="8" stroke-width="0.5" style="fill:rgb(230,241,251);stroke:rgb(24,95,165);stroke-width:0.5px"/>
+        <text x="140" y="248" text-anchor="middle" dominant-baseline="central" style="fill:rgb(12,68,124);stroke:none;font-size:14px;font-weight:500">Status Synthesis</text>
+        <text x="140" y="270" text-anchor="middle" dominant-baseline="central" style="fill:rgb(24,95,165);stroke:none;font-size:12px">Skill 01 · universal</text>
+      </g>
+
+      <g id="skill-node-03" style="font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif">
+        <rect x="20" y="388" width="240" height="64" rx="8" stroke-width="0.5" style="fill:rgb(230,241,251);stroke:rgb(24,95,165);stroke-width:0.5px"/>
+        <text x="140" y="412" text-anchor="middle" dominant-baseline="central" style="fill:rgb(12,68,124);stroke:none;font-size:14px;font-weight:500">Stakeholder Translation</text>
+        <text x="140" y="434" text-anchor="middle" dominant-baseline="central" style="fill:rgb(24,95,165);stroke:none;font-size:12px">Skill 03 · universal</text>
+      </g>
+
+      <!-- ═══ RIGHT CHAIN BOXES ═══ -->
+
+      <g id="skill-node-04" style="font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif">
+        <rect x="420" y="60" width="240" height="64" rx="8" stroke-width="0.5" style="fill:rgb(238,237,254);stroke:rgb(83,74,183);stroke-width:0.5px"/>
+        <text x="540" y="84" text-anchor="middle" dominant-baseline="central" style="fill:rgb(60,52,137);stroke:none;font-size:14px;font-weight:500">AI Governance RACI</text>
+        <text x="540" y="106" text-anchor="middle" dominant-baseline="central" style="fill:rgb(83,74,183);stroke:none;font-size:12px">Skill 04 · AI-specific only</text>
+      </g>
+
+      <g id="skill-node-05" style="font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif">
+        <rect x="420" y="224" width="240" height="64" rx="8" stroke-width="0.5" style="fill:rgb(225,245,238);stroke:rgb(15,110,86);stroke-width:0.5px"/>
+        <text x="540" y="248" text-anchor="middle" dominant-baseline="central" style="fill:rgb(8,80,65);stroke:none;font-size:14px;font-weight:500">RAID Log Intelligence</text>
+        <text x="540" y="270" text-anchor="middle" dominant-baseline="central" style="fill:rgb(15,110,86);stroke:none;font-size:12px">Skill 05 · universal</text>
+      </g>
+
+      <g id="skill-node-06" style="font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif">
+        <rect x="420" y="388" width="240" height="64" rx="8" stroke-width="0.5" style="fill:rgb(225,245,238);stroke:rgb(15,110,86);stroke-width:0.5px"/>
+        <text x="540" y="412" text-anchor="middle" dominant-baseline="central" style="fill:rgb(8,80,65);stroke:none;font-size:14px;font-weight:500">Decision Log</text>
+        <text x="540" y="434" text-anchor="middle" dominant-baseline="central" style="fill:rgb(15,110,86);stroke:none;font-size:12px">Skill 06 · universal</text>
+      </g>
+
+      <!-- ═══ EXISTING ARROWS (unchanged) ═══ -->
+
+      <!-- Left chain: Skill 02 → Skill 01 -->
+      <line x1="140" y1="124" x2="140" y2="224" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="150" y="179" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">risk findings</text>
+
+      <!-- Left chain: Skill 01 → Skill 03 -->
+      <line x1="140" y1="288" x2="140" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="150" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">RAG output →</text>
+
+      <!-- Right chain: Skill 04 → Skill 05 -->
+      <line x1="540" y1="124" x2="540" y2="224" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="550" y="179" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">governance gaps</text>
+
+      <!-- Right chain: Skill 05 → Skill 06 -->
+      <line x1="540" y1="288" x2="540" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="550" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">D-category decisions →</text>
+
+      <!-- Cross: Skill 02 → Skill 05 (new risk entries) -->
+      <path d="M260,92 V140 H460 V224" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="360" y="154" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">new risk entries</text>
+
+      <!-- Cross: Skill 05 → Skill 01 (escalated issues) -->
+      <line x1="420" y1="256" x2="260" y2="256" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="340" y="244" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">escalated issues</text>
+
+      <!-- ═══ NEW — HIGH CONFIDENCE (solid, confirmed) ═══ -->
+
+      <!-- H1: Skill 01 → Skill 05 (new RAID items — feedback loop, parallel to escalated issues) -->
+      <line x1="260" y1="268" x2="420" y2="268" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="340" y="282" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">new RAID items</text>
+
+      <!-- H2: Skill 06 → Skill 03 (decision context, horizontal at bottom row) -->
+      <line x1="420" y1="425" x2="260" y2="425" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="340" y="441" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">decision context →</text>
+
+      <!-- H3: Skill 06 → Skill 01 (approved decisions — routes through inter-chain corridor) -->
+      <path d="M420,408 H290 V244 H260" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="295" y="316" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">decision</text>
+      <text x="295" y="328" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">records</text>
+
+      <!-- ═══ NEW — MEDIUM CONFIDENCE (dashed, proposed) ═══ -->
+
+      <!-- M1: Skill 02 → Skill 06 (risk decisions — routes through inter-chain corridor) -->
+      <path d="M260,120 H400 V393 H420" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="396" y="200" text-anchor="end" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">risk decisions</text>
+
+      <!-- M2: Skill 04 → Skill 06 (governance decisions — confirmed; routes within right chain, right side) -->
+      <line x1="612" y1="124" x2="612" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="614" y="193" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">governance</text>
+      <text x="614" y="205" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">decisions</text>
+
+      <!-- M3: Skill 03 → Skill 06 (stakeholder approvals — routes below boxes) -->
+      <path d="M260,452 V466 H540 V452" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="400" y="476" text-anchor="middle" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">stakeholder approvals</text>
+
+      <!-- M4 (proposed): Skill 06 → Skill 05 (RAID updates — proposed return seam, GAP-98 path i) -->
+      <line x1="630" y1="388" x2="630" y2="288" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text x="632" y="336" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">RAID</text>
+      <text x="632" y="348" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">updates</text>
+
+      <!-- ═══ LEGEND ═══ -->
+
+      <!-- Row 1 -->
+      <rect x="40" y="507" width="12" height="12" rx="2" stroke-width="0.5" style="fill:rgb(230,241,251);stroke:rgb(24,95,165);stroke-width:0.5px"/>
+      <text x="58" y="518" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">Status reporting chain (Skills 01–03)</text>
+      <rect x="380" y="507" width="12" height="12" rx="2" stroke-width="0.5" style="fill:rgb(238,237,254);stroke:rgb(83,74,183);stroke-width:0.5px"/>
+      <text x="398" y="518" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">AI-specific scope (Skill 04 only)</text>
+
+      <!-- Row 2 -->
+      <rect x="40" y="526" width="12" height="12" rx="2" stroke-width="0.5" style="fill:rgb(225,245,238);stroke:rgb(15,110,86);stroke-width:0.5px"/>
+      <text x="58" y="537" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">Governance &amp; tracking chain (Skills 04–06)</text>
+      <text x="380" y="537" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">↻ = runs multiple times per project lifecycle</text>
+
+      <!-- Row 3 — confirmed (solid) relationship -->
+      <line x1="40" y1="548" x2="60" y2="548" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px"/>
+      <text x="68" y="552" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">Confirmed relationship</text>
+
+      <!-- Row 4 — proposed (dashed) relationship -->
+      <line x1="40" y1="562" x2="60" y2="562" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:4,3"/>
+      <text x="68" y="566" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">Proposed relationship (medium confidence)</text>
+
+      </svg>
+    </div>
+    <p class="map-caption">Two chains — status reporting (Skills 01–03) and governance &amp; tracking (Skills 04–06) — with the data-flow seams between them.</p>
+  </section>
+
+  <!-- ═══ 3 · The six skill cards ═══ -->
+  <section id="skills">
+    <p class="eyebrow">The six skills</p>
+
+    <p class="featured-framing">Five of these skills would sharpen any project office. This one is built for where AI hiring actually is — the governance layer AI projects consistently miss.</p>
+
+    <div class="cards">
+
+      <article class="card featured" id="skill-04">
+        <div class="card-head">
+          <span class="card-num">Skill 04</span>
+          <h3>AI Governance RACI Generator</h3>
+          <span class="tag ai">AI-specific</span>
+        </div>
+        <dl>
+          <div>
+            <dt>Problem</dt>
+            <dd>AI projects fail to name four governance roles again and again — Data Steward, Responsible AI, Model Risk / Validation Owner, and Operational Model Owner — not because teams are careless, but because no structured process checks for them at initiation. It's an accountability design failure, and it's usually discovered at the gate, with deployment weeks away and no one to provide independent validation.</dd>
+          </div>
+          <div>
+            <dt>Judgment encoded</dt>
+            <dd>The tool classifies the AI initiative by type, then generates an accountability structure calibrated to that type's failure modes — an automated decision-making system and a reporting dashboard get materially different governance. Its anchor rule: an absent governance role is never proxied. A missing Accountable owner shows as a visibly blank cell with a footnote citing the rule, never a convenient stand-in — because a RACI that looks complete when it isn't gives the team false confidence that validation is covered. Gaps are mapped to their NIST AI RMF function, with gate conditions that can't be papered over.</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>Governance gaps made visible and actionable before the first gate closes. The PM knows not just that a role is absent, but which decisions are blocked, which gates can't close, and exactly what each incoming role will own from day one.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card" id="skill-01">
+        <div class="card-head">
+          <span class="card-num">Skill 01</span>
+          <h3>Status Report Synthesis</h3>
+          <span class="tag">Universal</span>
+        </div>
+        <dl>
+          <div>
+            <dt>Problem</dt>
+            <dd>Sponsors make scope, budget, and timeline calls off status reports — yet RAG language, escalation criteria, and self-reported status get applied inconsistently from report to report. That's a governance risk, not a formatting one.</dd>
+          </div>
+          <div>
+            <dt>Judgment encoded</dt>
+            <dd>The tool computes project status from the raw data independently of the PM's self-report, then flags the gap between the two — its sandbagging check. It separates risks from issues from blockers, routes escalations and team wins to different sections, and checks the RAID health signal against the computed status. Seven judgment calls in all.</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>Every status assessment is traceable to a named rule and threshold — auditable governance rather than intuition — and the PM reviews and approves before anything is distributed.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card" id="skill-02">
+        <div class="card-head">
+          <span class="card-num">Skill 02</span>
+          <h3>Pre-Mortem Risk Scan</h3>
+          <span class="tag">Universal</span>
+        </div>
+        <dl>
+          <div>
+            <dt>Problem</dt>
+            <dd>The signals before a project fails are usually already there — a vendor gone quiet, an unsigned baseline, a disengaged sponsor. What's missing is a repeatable way to surface them before they become crises, instead of relying on individual memory and point-in-time assessments that miss compound risk.</dd>
+          </div>
+          <div>
+            <dt>Judgment encoded</dt>
+            <dd>The tool matches project signals against a 103-pattern failure library, surfaces the five patterns that actually block a project in a STOP-AND-ADDRESS block <em>before</em> the main report, and tracks unresolved patterns across sprints — so a risk that was manageable at Sprint 4 and still open at Sprint 8 is flagged as compounding, with the prior evidence cited.</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>Forward-looking risk coverage that doesn't depend on how much time the PM had to prepare — and the most important finding is surfaced first, not buried at row eleven of a table.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card" id="skill-03">
+        <div class="card-head">
+          <span class="card-num">Skill 03</span>
+          <h3>Stakeholder Translation</h3>
+          <span class="tag">Universal</span>
+        </div>
+        <dl>
+          <div>
+            <dt>Problem</dt>
+            <dd>One project position has to reach the executive, the customer, and the team — each needing a different version to act on it correctly. In practice PMs make that calibration informally, under pressure, from habit, and sometimes soften difficult news in ways that create false stability.</dd>
+          </div>
+          <div>
+            <dt>Judgment encoded</dt>
+            <dd>The tool calibrates abstraction and confidence language per audience while enforcing a floor: no translation may contradict the official RAG status, and certain facts — security events, timeline slips affecting customer commitments, unowned blockers — survive every translation unchanged. On a contradiction in the input, it stops and waits for the PM rather than resolving it on its own.</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>Governed register calibration that preserves the truth under pressure to soften it, with every customer-facing output gated on a conscious PM decision.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card" id="skill-05">
+        <div class="card-head">
+          <span class="card-num">Skill 05</span>
+          <h3>RAID Log Intelligence</h3>
+          <span class="tag">Universal</span>
+        </div>
+        <dl>
+          <div>
+            <dt>Problem</dt>
+            <dd>A RAID log that isn't actively maintained stops being a risk tool. Risks that have already materialized sit in the Risk column because no one reclassified them; priorities drift from the context they were logged in; and the status report no longer matches the project's real posture.</dd>
+          </div>
+          <div>
+            <dt>Judgment encoded</dt>
+            <dd>The tool re-categorizes every item from its characteristics rather than its original label, graduates a Risk to an Issue when its trigger has fired — with an explicit Watch stage for the "approaching but not yet materialized" gap the framework doesn't define — reassesses priority against current milestone proximity, and treats severity and urgency as separate dimensions in escalation.</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>A risk posture assessed against current project context, not log-entry context — with a graduated Issue surfaced before the status report is written, not discovered at the post-mortem.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card" id="skill-06">
+        <div class="card-head">
+          <span class="card-num">Skill 06</span>
+          <h3>Decision Log with Why-Capture</h3>
+          <span class="tag">Universal</span>
+        </div>
+        <dl>
+          <div>
+            <dt>Problem</dt>
+            <dd>A decision log that records what was decided but not why is a list of outcomes whose reasoning has left the building. Five sprints on, a reversal forces the team to re-litigate the whole evaluation under schedule pressure — the rationale existed, it was just never captured, and deferred capture is lost capture.</dd>
+          </div>
+          <div>
+            <dt>Judgment encoded</dt>
+            <dd>The tool tests whether a discussion has actually hardened into a ratified decision worth capturing, records the why at a depth calibrated to the decision's type and weight, flags the load-bearing assumptions a decision rests on, preserves the original record when a decision is reversed — with the sunk costs stated — and never fills its own authority gaps, holding an unratified decision at Pending Review instead.</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>A defensible record of what was decided, why, by whom, and on what assumptions — captured while it's still recoverable, not reconstructed after the rationale has gone cold.</dd>
+          </div>
+        </dl>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ═══ 4 · Excerpt callouts ═══ -->
+  <section id="excerpts">
+    <p class="eyebrow">From the case studies</p>
+    <div class="callouts">
+
+      <figure class="callout">
+        <blockquote>"A RACI that shows the Business Owner as Accountable for bias and fairness review because the Responsible AI role does not exist on the team is not a governance RACI — it is a false assurance document."</blockquote>
+        <figcaption><span class="theme">Governance discipline</span> · Skill 04 — AI Governance RACI Generator</figcaption>
+      </figure>
+
+      <figure class="callout">
+        <blockquote>"A skill should produce what it is the authority on and hand off cleanly — a check belongs where the decision it informs is made, and a tool should not re-implement its neighbor's judgment to make a handoff feel complete."</blockquote>
+        <figcaption><span class="theme">Systems architecture</span> · Skill 05 — RAID Log Intelligence</figcaption>
+      </figure>
+
+      <figure class="callout">
+        <blockquote>"Every status assessment is traceable to a named judgment rule. That is auditable governance, not intuition. The tool produces a draft; the PM reviews and approves. AI synthesizes — PM owns."</blockquote>
+        <figcaption><span class="theme">Human-in-the-loop defensibility</span> · Skill 01 — Status Report Synthesis</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ═══ 5 · Access note ═══ -->
+  <section id="access">
+    <p class="eyebrow">A note on access</p>
+    <div class="note">
+      <p>The six skills run as live Claude Projects, each built with a documented validation (UAT) workflow and audit trail. The runnable pack itself is kept private — a public copy of working tooling is a usable copy, and these are meant to be deployed inside a role first. What's public here is the design record: the judgment each skill encodes, and how it was validated. The full pack is available to walk through on request — I'm glad to run any of these live.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Tamao Horiguchi · PMP, CSM</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
