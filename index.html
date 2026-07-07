@@ -258,6 +258,26 @@
     header { padding: 3.25rem 0 2.75rem; }
     .card { padding: 1.375rem 1.25rem 1.25rem; }
   }
+
+  /* ── Phase 2: interactive relationship map ──────────── */
+  #relationship-map g[id^="skill-node-"] {
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+  }
+  #relationship-map g[id^="skill-node-"]:focus { outline: none; }
+  #relationship-map g[id^="skill-node-"]:focus-visible rect {
+    stroke-width: 2px !important;
+  }
+  #relationship-map svg [data-skills] { transition: opacity 0.18s ease; }
+  #relationship-map svg.has-focus [data-skills]:not(.is-lit),
+  #relationship-map svg.has-focus g[id^="skill-node-"]:not(.is-lit) {
+    opacity: 0.18 !important;
+  }
+  /* Skill 04 — featured entry point: subtle persistent emphasis */
+  #relationship-map #skill-node-04 rect {
+    stroke-width: 1.5px !important;
+    filter: drop-shadow(0 1px 4px rgba(83, 74, 183, 0.28));
+  }
 </style>
 </head>
 <body>
@@ -281,7 +301,7 @@
     <h2>How the six skills connect</h2>
     <div class="map-frame">
       <svg width="100%" viewBox="0 0 680 578" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="map-title map-desc">
-      <title id="map-title" style="fill:rgb(0,0,0);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:16px">AI PMO Skill Pack — skill relationship map v2</title>
+      <title id="map-title" style="fill:rgb(0,0,0);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:16px">How the six AI PMO skills connect: two chains (status reporting, Skills 01–03; governance and tracking, Skills 04–06) and the data-flow seams between them</title>
       <desc id="map-desc" style="fill:rgb(0,0,0);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:16px">Six skills in two chains. Updated June 12 2026. Confirmed relationships: Skill 06 to Skill 01 (decision records), Skill 06 to Skill 03 (decision context), Skill 01 to Skill 05 (new RAID items), Skill 04 to Skill 06 (governance decisions — upgraded from proposed per GAP-95). Proposed medium-confidence relationships: Skill 02 to Skill 06 (risk decisions), Skill 03 to Skill 06 (stakeholder approvals), Skill 06 to Skill 05 (RAID updates — return seam, GAP-98 path i).</desc>
 
       <defs>
@@ -338,63 +358,63 @@
       <!-- ═══ EXISTING ARROWS (unchanged) ═══ -->
 
       <!-- Left chain: Skill 02 → Skill 01 -->
-      <line x1="140" y1="124" x2="140" y2="224" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="150" y="179" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">risk findings</text>
+      <line data-skills="02 01" x1="140" y1="124" x2="140" y2="224" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="02 01" x="150" y="179" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">risk findings</text>
 
       <!-- Left chain: Skill 01 → Skill 03 -->
-      <line x1="140" y1="288" x2="140" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="150" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">RAG output →</text>
+      <line data-skills="01 03" x1="140" y1="288" x2="140" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="01 03" x="150" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">RAG output →</text>
 
       <!-- Right chain: Skill 04 → Skill 05 -->
-      <line x1="540" y1="124" x2="540" y2="224" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="550" y="179" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">governance gaps</text>
+      <line data-skills="04 05" x1="540" y1="124" x2="540" y2="224" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="04 05" x="550" y="179" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">governance gaps</text>
 
       <!-- Right chain: Skill 05 → Skill 06 -->
-      <line x1="540" y1="288" x2="540" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="550" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">decision items</text>
+      <line data-skills="05 06" x1="540" y1="288" x2="540" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="05 06" x="550" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">decision items</text>
 
       <!-- Cross: Skill 02 → Skill 05 (new risk entries) -->
-      <path d="M260,92 V140 H460 V224" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="360" y="154" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">new risk entries</text>
+      <path data-skills="02 05" d="M260,92 V140 H460 V224" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="02 05" x="360" y="154" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">new risk entries</text>
 
       <!-- Cross: Skill 05 → Skill 01 (escalated issues) -->
-      <line x1="420" y1="256" x2="260" y2="256" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="340" y="244" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">escalated issues</text>
+      <line data-skills="05 01" x1="420" y1="256" x2="260" y2="256" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="05 01" x="340" y="244" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">escalated issues</text>
 
       <!-- ═══ NEW — HIGH CONFIDENCE (solid, confirmed) ═══ -->
 
       <!-- H1: Skill 01 → Skill 05 (new RAID items — feedback loop, parallel to escalated issues) -->
-      <line x1="260" y1="268" x2="420" y2="268" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="340" y="282" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">new RAID items</text>
+      <line data-skills="01 05" x1="260" y1="268" x2="420" y2="268" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="01 05" x="340" y="282" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">new RAID items</text>
 
       <!-- H2: Skill 06 → Skill 03 (decision context, horizontal at bottom row) -->
-      <line x1="420" y1="425" x2="260" y2="425" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="340" y="441" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">decision context →</text>
+      <line data-skills="06 03" x1="420" y1="425" x2="260" y2="425" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="06 03" x="340" y="441" text-anchor="middle" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">decision context →</text>
 
       <!-- H3: Skill 06 → Skill 01 (approved decisions — routes through inter-chain corridor) -->
-      <path d="M420,408 H290 V244 H260" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="295" y="316" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">decision</text>
-      <text x="295" y="328" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">records</text>
+      <path data-skills="06 01" d="M420,408 H290 V244 H260" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="06 01" x="295" y="316" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">decision</text>
+      <text data-skills="06 01" x="295" y="328" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">records</text>
 
       <!-- ═══ NEW — MEDIUM CONFIDENCE (dashed, proposed) ═══ -->
 
       <!-- M1: Skill 02 → Skill 06 (risk decisions — routes through inter-chain corridor) -->
-      <path d="M260,120 H400 V393 H420" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="396" y="200" text-anchor="end" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">risk decisions</text>
+      <path data-skills="02 06" d="M260,120 H400 V393 H420" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="02 06" x="396" y="200" text-anchor="end" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">risk decisions</text>
 
       <!-- M2: Skill 04 → Skill 06 (governance decisions — confirmed; routes within right chain, right side) -->
-      <line x1="612" y1="124" x2="612" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="614" y="193" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">governance</text>
-      <text x="614" y="205" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">decisions</text>
+      <line data-skills="04 06" x1="612" y1="124" x2="612" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="04 06" x="614" y="193" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">governance</text>
+      <text data-skills="04 06" x="614" y="205" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">decisions</text>
 
       <!-- M3: Skill 03 → Skill 06 (stakeholder approvals — routes below boxes) -->
-      <path d="M260,452 V466 H540 V452" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="400" y="476" text-anchor="middle" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">stakeholder approvals</text>
+      <path data-skills="03 06" d="M260,452 V466 H540 V452" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="03 06" x="400" y="476" text-anchor="middle" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:11px">stakeholder approvals</text>
 
       <!-- M4 (proposed): Skill 06 → Skill 05 (RAID updates — proposed return seam, GAP-98 path i) -->
-      <line x1="630" y1="388" x2="630" y2="288" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="632" y="362" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">RAID</text>
-      <text x="632" y="374" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">updates</text>
+      <line data-skills="06 05" x1="630" y1="388" x2="630" y2="288" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
+      <text data-skills="06 05" x="632" y="362" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">RAID</text>
+      <text data-skills="06 05" x="632" y="374" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">updates</text>
 
       <!-- ═══ LEGEND ═══ -->
 
@@ -603,6 +623,84 @@
   </footer>
 
 </div>
+
+<script>
+/* ═══ Phase 2 — interactive relationship map (scoped to #relationship-map) ═══
+   Hover/focus a skill node → highlight its seams (edges tagged data-skills)
+   and neighbor nodes, dim the rest. Click/tap/Enter/Space → scroll to card. */
+(function () {
+  var svg = document.querySelector('#relationship-map svg');
+  if (!svg) return;
+
+  var nodes = Array.prototype.slice.call(svg.querySelectorAll('g[id^="skill-node-"]'));
+  var edges = Array.prototype.slice.call(svg.querySelectorAll('[data-skills]'));
+  var NAMES = {
+    '01': 'Status Synthesis',
+    '02': 'Pre-Mortem Scan',
+    '03': 'Stakeholder Translation',
+    '04': 'AI Governance RACI',
+    '05': 'RAID Log Intelligence',
+    '06': 'Decision Log'
+  };
+
+  function clearFocus() {
+    svg.classList.remove('has-focus');
+    Array.prototype.forEach.call(svg.querySelectorAll('.is-lit'), function (el) {
+      el.classList.remove('is-lit');
+    });
+  }
+
+  function focusSkill(id) {
+    clearFocus();
+    svg.classList.add('has-focus');
+    var lit = {};
+    lit[id] = true;
+    edges.forEach(function (el) {
+      var pair = el.getAttribute('data-skills').split(' ');
+      if (pair.indexOf(id) !== -1) {
+        el.classList.add('is-lit');
+        pair.forEach(function (p) { lit[p] = true; });
+      }
+    });
+    nodes.forEach(function (n) {
+      if (lit[n.id.slice(-2)]) n.classList.add('is-lit');
+    });
+  }
+
+  function isKeyboardFocus(el) {
+    try { return el.matches(':focus-visible'); } catch (e) { return true; }
+  }
+
+  nodes.forEach(function (node) {
+    var id = node.id.slice(-2);
+    node.setAttribute('tabindex', '0');
+    node.setAttribute('role', 'link');
+    node.setAttribute('aria-label', 'Skill ' + id + ' — ' + NAMES[id] + '. Activate to jump to its card.');
+    /* An empty <title> on the node suppresses the browser tooltip inherited
+       from the svg-level <title> (which stays for aria-labelledby);
+       the aria-label above still names the node for assistive tech. */
+    node.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'title'), node.firstChild);
+
+    function activate() {
+      clearFocus(); /* touch fires mouseenter with no mouseleave — reset here */
+      var card = document.getElementById('skill-' + id);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    node.addEventListener('mouseenter', function () { focusSkill(id); });
+    node.addEventListener('mouseleave', clearFocus);
+    node.addEventListener('focus', function () { if (isKeyboardFocus(node)) focusSkill(id); });
+    node.addEventListener('blur', clearFocus);
+    node.addEventListener('click', activate);
+    node.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        activate();
+      }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
