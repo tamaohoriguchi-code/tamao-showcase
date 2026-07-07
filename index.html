@@ -128,6 +128,12 @@
   /* ── Skill cards ────────────────────────────────────── */
   .cards { display: grid; gap: 1.5rem; }
 
+  .skills-intro {
+    color: var(--ink-soft);
+    max-width: 38rem;
+    margin-bottom: 1.25rem;
+  }
+
   .featured-framing {
     font-family: var(--serif);
     font-size: 1.0625rem;
@@ -345,7 +351,7 @@
 
       <!-- Right chain: Skill 05 → Skill 06 -->
       <line x1="540" y1="288" x2="540" y2="388" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="550" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">D-category decisions →</text>
+      <text x="550" y="340" text-anchor="start" style="fill:rgb(61,61,58);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:12px">decision items</text>
 
       <!-- Cross: Skill 02 → Skill 05 (new risk entries) -->
       <path d="M260,92 V140 H460 V224" fill="none" marker-end="url(#arrow)" style="fill:none;stroke:rgb(115,114,108);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
@@ -387,8 +393,8 @@
 
       <!-- M4 (proposed): Skill 06 → Skill 05 (RAID updates — proposed return seam, GAP-98 path i) -->
       <line x1="630" y1="388" x2="630" y2="288" marker-end="url(#arrow)" style="fill:none;stroke:rgb(170,170,165);stroke-width:1.5px;stroke-dasharray:5,3;stroke-linecap:butt;stroke-linejoin:miter;opacity:1"/>
-      <text x="632" y="336" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">RAID</text>
-      <text x="632" y="348" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">updates</text>
+      <text x="632" y="362" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">RAID</text>
+      <text x="632" y="374" text-anchor="start" style="fill:rgb(150,150,145);stroke:none;font-family:&quot;Anthropic Sans&quot;,-apple-system,&quot;system-ui&quot;,&quot;Segoe UI&quot;,sans-serif;font-size:10px">updates</text>
 
       <!-- ═══ LEGEND ═══ -->
 
@@ -420,7 +426,9 @@
   <section id="skills">
     <p class="eyebrow">The six skills</p>
 
-    <p class="featured-framing">Five of these skills would sharpen any project office. This one is built for where AI hiring actually is — the governance layer AI projects consistently miss.</p>
+    <p class="skills-intro">Each skill encodes one PM judgment call as an auditable tool. Here they are.</p>
+
+    <p class="featured-framing">Five of these are general PMO skills. This one is specific to AI — the governance layer AI projects most often miss.</p>
 
     <div class="cards">
 
@@ -437,7 +445,7 @@
           </div>
           <div>
             <dt>Judgment encoded</dt>
-            <dd>The tool classifies the AI initiative by type, then generates an accountability structure calibrated to that type's failure modes — an automated decision-making system and a reporting dashboard get materially different governance. Its anchor rule: an absent governance role is never proxied. A missing Accountable owner shows as a visibly blank cell with a footnote citing the rule, never a convenient stand-in — because a RACI that looks complete when it isn't gives the team false confidence that validation is covered. Gaps are mapped to their NIST AI RMF function, with gate conditions that can't be papered over.</dd>
+            <dd>The tool classifies the AI initiative by type, then generates an accountability structure calibrated to that type's failure modes — an automated decision-making system and a reporting dashboard get materially different governance. Its anchor rule: an absent governance role is never proxied. A missing Accountable owner shows as a visibly blank cell with a footnote citing the rule, never a convenient stand-in — because a RACI that only looks complete gives the team false confidence that validation is covered. Gaps are mapped to their NIST AI RMF function, with gate conditions that can't be papered over.</dd>
           </div>
           <div>
             <dt>Outcome</dt>
@@ -499,7 +507,7 @@
         <dl>
           <div>
             <dt>Problem</dt>
-            <dd>One project position has to reach the executive, the customer, and the team — each needing a different version to act on it correctly. In practice PMs make that calibration informally, under pressure, from habit, and sometimes soften difficult news in ways that create false stability.</dd>
+            <dd>One project position has to reach the executive, the customer, and the team — each needing a different version to act on it correctly. In practice, PMs make that calibration informally, under pressure, from habit, and sometimes soften difficult news in ways that create false stability.</dd>
           </div>
           <div>
             <dt>Judgment encoded</dt>
@@ -586,7 +594,7 @@
   <section id="access">
     <p class="eyebrow">A note on access</p>
     <div class="note">
-      <p>The six skills run as live Claude Projects, each built with a documented validation (UAT) workflow and audit trail. The runnable pack itself is kept private — a public copy of working tooling is a usable copy, and these are meant to be deployed inside a role first. What's public here is the design record: the judgment each skill encodes, and how it was validated. The full pack is available to walk through on request — I'm glad to run any of these live.</p>
+      <p>The six skills run as live Claude Projects, each built with a documented validation (UAT) workflow. This page describes the work — the judgment each skill encodes and how it was validated. The skills themselves, and their source files, stay private: a working copy is a usable copy. I'm glad to walk through the full pack, or run any skill live, on request.</p>
     </div>
   </section>
 
